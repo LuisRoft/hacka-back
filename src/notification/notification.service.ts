@@ -8,7 +8,9 @@ export class NotificationService {
     const apiKey = this.configService.get<string>('SENDGRID_API_KEY');
 
     if (!apiKey) {
-      throw new Error('La clave API de SendGrid no está configurada en las variables de entorno');
+      throw new Error(
+        'La clave API de SendGrid no está configurada en las variables de entorno',
+      );
     }
 
     sgMail.setApiKey(apiKey);
@@ -28,7 +30,9 @@ export class NotificationService {
     const templateId = this.configService.get<string>('SENDGRID_TEMPLATE_ID');
 
     if (!templateId) {
-      throw new Error('El ID de la plantilla de SendGrid no está configurado en las variables de entorno');
+      throw new Error(
+        'El ID de la plantilla de SendGrid no está configurado en las variables de entorno',
+      );
     }
 
     try {
@@ -48,9 +52,11 @@ export class NotificationService {
       await sgMail.send(msg);
       console.log(`Correo enviado exitosamente a ${to}`);
     } catch (error) {
-      console.error('Error enviando correo con plantilla:', error.response?.body?.errors || error.message);
+      console.error(
+        'Error enviando correo con plantilla:',
+        error.response?.body?.errors || error.message,
+      );
       throw new Error('No se pudo enviar el correo.');
     }
   }
 }
-

@@ -34,7 +34,10 @@ describe('DocumentsController', () => {
         title: 'Contrato de Trabajo',
         collaborator_email: 'johannescv417@gmail.com',
       };
-      const sendEmailWithTemplateSpy = jest.spyOn(notificationService, 'sendEmailWithTemplate');
+      const sendEmailWithTemplateSpy = jest.spyOn(
+        notificationService,
+        'sendEmailWithTemplate',
+      );
 
       // Act: llamamos al método que queremos probar
       await documentsController.sendDocument(document);
@@ -61,7 +64,9 @@ describe('DocumentsController', () => {
       const result = await documentsController.sendDocument(document);
 
       // Assert: verificamos la respuesta
-      expect(result).toEqual({ message: 'Documento enviado y notificación enviada.' });
+      expect(result).toEqual({
+        message: 'Documento enviado y notificación enviada.',
+      });
     });
   });
 });

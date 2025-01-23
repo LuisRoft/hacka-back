@@ -11,12 +11,15 @@ import {
 import { DocumentsService } from './documents.service';
 import { CreateDocumentDto } from './dtos/create-document.dto';
 import { UpdateDocumentDto } from './dtos/update-document.dto';
+import { NotificationService } from 'src/notification/notification.service';
 
 @ApiTags('Documents') // Agrupa los endpoints bajo esta etiqueta
 @Controller('documents')
 export class DocumentsController {
-  constructor(private readonly documentsService: DocumentsService) {}
-  constructor(private readonly notificationService: NotificationService) {}
+  constructor(
+    private readonly documentsService: DocumentsService,
+    private readonly notificationService: NotificationService,
+  ) {}
 
   @ApiOperation({ summary: 'Crear un documento' })
   @ApiResponse({ status: 201, description: 'Documento creado exitosamente.' })
@@ -42,6 +45,7 @@ export class DocumentsController {
         message: 'Documento enviado y notificación por correo enviada.',
       };
     } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       console.error('Error al enviar el documento:', error.message);
       throw error;
     }
