@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
@@ -7,18 +8,19 @@ async function bootstrap() {
 
   // Configuración de Swagger
   const config = new DocumentBuilder()
-    .setTitle('API Documentation')
-    .setDescription('Documentación de la API para el equipo frontend.')
+    .setTitle('Hacka Backend API')
+    .setDescription(
+      'API para manejar documentos, usuarios, remitentes y notificaciones',
+    )
     .setVersion('1.0')
-    .addTag('Endpoints') // Puedes agregar tags para agrupar endpoints
+    .addTag('Documents')
+    .addTag('Notifications')
+    .addTag('Reminent')
+    .addTag('Users')
     .build();
-
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document); // La documentación estará disponible en /api
-
-  // Habilitar CORS si es necesario
-  app.enableCors();
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);
 }
-bootstrap().catch((err) => console.error(err));
+bootstrap();

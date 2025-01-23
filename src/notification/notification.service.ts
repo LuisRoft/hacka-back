@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as sgMail from '@sendgrid/mail';
@@ -16,12 +17,6 @@ export class NotificationService {
     sgMail.setApiKey(apiKey);
   }
 
-  /**
-   * Envía un correo utilizando una plantilla dinámica de SendGrid.
-   * @param to Correo del destinatario
-   * @param subject Asunto del correo (opcional, para la plantilla)
-   * @param dynamicData Datos dinámicos para la plantilla de SendGrid
-   */
   async sendEmailWithTemplate(
     to: string,
     subject: string,
@@ -38,23 +33,17 @@ export class NotificationService {
     try {
       const msg = {
         to,
-        from: 'xaviedunavi@gmail.com', // Cambiado al correo verificado
-        replyTo: 'xaviedunavi@gmail.com', // Opcional: Cambia esto si deseas recibir respuestas en otro correo
+        from: 'xaviedunavi@gmail.com',
         templateId,
-        dynamicTemplateData: {
-          subject,
-          ...dynamicData,
-        },
+        dynamicTemplateData: { subject, ...dynamicData },
       };
-
-      console.log('Enviando correo con los siguientes datos:', msg);
 
       await sgMail.send(msg);
       console.log(`Correo enviado exitosamente a ${to}`);
     } catch (error) {
       console.error(
-        'Error enviando correo con plantilla:',
-        error.response?.body?.errors || error.message,
+        'Error enviando correo:',
+        error.response?.body || error.message,
       );
       throw new Error('No se pudo enviar el correo.');
     }

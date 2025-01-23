@@ -3,8 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { NotificationService } from './notification.service';
 
 @Module({
-  imports: [ConfigModule], // Importa ConfigModule para que ConfigService esté disponible
+  imports: [ConfigModule],
   providers: [NotificationService],
-  exports: [NotificationService], // Exporta NotificationService para que otros módulos puedan usarlo
+  controllers: [], // Puedes agregar aquí un controlador si lo necesitas
+  exports: [NotificationService], // Exporta el servicio
 })
 export class NotificationModule {}
