@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { NotificationModule } from './notification/notification.module';
+import { DocumentsController } from './documents/documents.controller';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, // Hace que ConfigModule esté disponible en todos los módulos automáticamente
+    }),
+    NotificationModule,
+  ],
+  controllers: [DocumentsController],
 })
 export class AppModule {}
